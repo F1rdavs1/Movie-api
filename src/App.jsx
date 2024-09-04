@@ -1,8 +1,13 @@
 import './App.css'
+import Navbar from './components/Navbar'
+import CustomRoutes from './routes'
 
 function App() {
   return (
-    <h1>salomat</h1>
+    <>
+    <Navbar/>
+    <CustomRoutes/>
+    </>
   )
 }
 
