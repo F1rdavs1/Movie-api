@@ -10,7 +10,7 @@ function NowPlaying() {
   const [movieData, setMovieData] = useState([])
 
   useEffect(() => {
-    useAxios().get(`now_playing?language=en-US&page=${page}&api_key=${API_KEY}`, {
+    useAxios().get(`/movie/now_playing?language=en-US&page=${page}&api_key=${API_KEY}`, {
       headers:{
         "Authorization":`Bearer ${TOKEN}`
       }

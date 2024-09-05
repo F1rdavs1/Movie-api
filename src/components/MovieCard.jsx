@@ -7,15 +7,18 @@ import Button from '@mui/material/Button';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardActions from '@mui/material/CardActions';
 import { IMG_URL } from '../hooks/useEnv';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function MovieCard({item}) {
+  const navigate = useNavigate()
   return (
+    
     <Card sx={{ maxWidth: 300 }}>
       <CardActionArea>
         <CardMedia
           component="img"
           height="140"
-          image={`${IMG_URL}${item.poster_path}`}
+          image={`${IMG_URL}/${item.poster_path}`}
           alt="green iguana"
         />
         <CardContent>
@@ -31,7 +34,7 @@ export default function MovieCard({item}) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button variant='outlined' size="small" color="primary">
+        <Button onClick={() => navigate(`/${item.id}`)} variant='outlined' size="small" color="primary">
           More
         </Button>
       </CardActions>

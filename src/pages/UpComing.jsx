@@ -10,7 +10,7 @@ function UpComing() {
   const [movieData, setMovieData] = useState([])
 
   useEffect(() => {
-    useAxios().get(`upcoming?language=en-US&page=${page}&api_key=${API_KEY}`, {
+    useAxios().get(`/movie/upcoming?language=en-US&page=${page}&api_key=${API_KEY}`, {
       headers:{
         "Authorization":`Bearer ${TOKEN}`
       }

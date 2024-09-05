@@ -10,7 +10,7 @@ function TopRated() {
   const [movieData, setMovieData] = useState([])
 
   useEffect(() => {
-    useAxios().get(`top_rated?language=en-US&page=${page}&api_key=${API_KEY}`, {
+    useAxios().get(`/movie/top_rated?language=en-US&page=${page}&api_key=${API_KEY}`, {
       headers:{
         "Authorization":`Bearer ${TOKEN}`
       }

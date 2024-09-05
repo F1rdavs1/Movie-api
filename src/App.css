@@ -3,5 +3,12 @@
 @tailwind utilities;
 
 .active {
-    color: orangered;
+    color: white;
+    border-radius: 10px;
+    /* transition-duration: 300ms; */
+    background-color: gray;
+}
+
+iframe {
+    width: 100%;
 }

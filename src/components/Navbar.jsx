@@ -4,19 +4,28 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
-import { NavLink } from 'react-router-dom';
-import { Autocomplete, TextField } from '@mui/material';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useAxios } from '../hooks/useAxios';
+import { API_KEY } from '../hooks/useEnv';
+import { AutoComplete } from 'antd';
 
 
 
 export default function Navbar() {
-    const options = [
-        { label: 'The Godfather', id: 1 },
-        { label: 'Pulp Fiction', id: 2 },
-      ];
+    const [options, setOptions] = React.useState([])
+    const navigate = useNavigate()
+
+      function handleSearchMovie (e){
+        useAxios().get(`/search/movie?query=${e}&include_adult=false&api_key=${API_KEY}`).then(res => {
+          setOptions(res.data.results.map(item =>({value:item.title, id:item.id})));
+        });
+      }
+      function handleChooseMovie (a, b) {
+        navigate(`${b.id}`);
+      }
   return (
       <AppBar color='transparent' position="static">
-        <Toolbar>
+        <Toolbar className='pt-[10px] pb-[14px]'>
           <IconButton
             size="large"
             edge="start"
@@ -33,16 +42,19 @@ export default function Navbar() {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            <NavLink className={'text-[16px]'} to={'/'}>NowPlaying</NavLink>
-            <NavLink className={'text-[16px]'} to={'/popular'}>Popular</NavLink>
-            <NavLink className={'text-[16px]'} to={'/top-rated'}>TopRated</NavLink>
-            <NavLink className={'text-[16px]'} to={'/up-coming'}>UpComing</NavLink>
+            <NavLink className={'text-[16px] py-[7px] duration-300 px-[8px]'} to={'/'}>NowPlaying</NavLink>
+            <NavLink className={'text-[16px] py-[7px] duration-300 px-[8px]'} to={'/popular'}>Popular</NavLink>
+            <NavLink className={'text-[16px] py-[7px] duration-300 px-[8px]'} to={'/top-rated'}>TopRated</NavLink>
+            <NavLink className={'text-[16px] py-[7px] duration-300 px-[8px]'} to={'/up-coming'}>UpComing</NavLink>
           </Typography>
-          <Autocomplete
-            disablePortal
-            options={options}
-            sx={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} label="Movie" />}
+            <AutoComplete
+            onSearch={handleSearchMovie}
+            onSelect={handleChooseMovie}
+              size='large'
+              style={{width : 300}}
+              allowClear
+              options={options}
+              placeholder="search movie"
             />
         </Toolbar>
       </AppBar>
